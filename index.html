@@ -264,6 +264,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#compute-the-diff" class="md-nav__link">
+    Compute the diff
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#why-create-cruft" class="md-nav__link">
     Why Create cruft?
   </a>
@@ -524,6 +531,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#compute-the-diff" class="md-nav__link">
+    Compute the diff
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#why-create-cruft" class="md-nav__link">
     Why Create cruft?
   </a>
@@ -637,6 +651,9 @@ to a skip section within your .cruft.json file:</p>
 
 
 <p>You can then specify the last commit of the template the project has been updated to be consistent with, or accept the default of using the latest commit from the template.</p>
+<h2 id="compute-the-diff">Compute the diff</h2>
+<p>With time, your boilerplate may end up being very different from the acutal cookiecutter template. Cruft allows you to quickly see what changed in your local project compared to the template. It is as easy as running <code>cruft diff</code>. If any local file differs from the template, the diff will appear in your terminal in a similar fashion to <code>git diff</code>.</p>
+<p>The <code>cruft diff</code> command optionally accepts an <code>--exit-code</code> flag that will make cruft exit with a non-0 code should any diff is found. You can combine this flag with the <code>skip</code> section of your <code>.cruft.json</code> to make stricter CI checks that ensures any improvement to the template is always submitted upstream.</p>
 <h2 id="why-create-cruft">Why Create cruft?</h2>
 <p>Since I first saw videos of <a href="https://www.youtube.com/watch?v=9EctXzH2dss">quickly</a> being used to automate Ubuntu application creation, I've had a love/hate relationship with these kinds of tools.
 I've used them for many projects and certainly seen them lead to productivity improvements. However, I've always felt like they were a double-edged sword. Sure, they would automate away the copying and pasting many would do to create projects. However, by doing so,
