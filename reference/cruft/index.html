@@ -866,6 +866,8 @@ the code you intentionally write. Built on-top of, and fully compatible with, Co
 
 <span class="s1">            checkout=checkout,</span>
 
+<span class="s1">            update_deleted_paths=True,</span>
+
 <span class="s1">        )</span>
 
 <span class="s1">        # Then we create a new tree with each file in the template that also exist</span>
@@ -892,7 +894,7 @@ the code you intentionally write. Built on-top of, and fully compatible with, Co
 
 <span class="s1">        # Finally we can compute and print the diff.</span>
 
-<span class="s1">        diff = utils.diff.get_diff(remote_template_dir, local_template_dir)</span>
+<span class="s1">        diff = utils.diff.get_diff(local_template_dir, remote_template_dir)</span>
 
 <span class="s1">        if diff.strip():</span>
 
@@ -930,7 +932,7 @@ the code you intentionally write. Built on-top of, and fully compatible with, Co
 
 <span class="w">                </span><span class="err">#</span><span class="w"> </span><span class="n">better</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">find</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">way</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">git</span><span class="w"> </span><span class="n">shrink</span><span class="w"> </span><span class="n">those</span><span class="w"> </span><span class="n">paths</span><span class="p">.</span><span class="w"></span>
 
-<span class="w">                </span><span class="n">utils</span><span class="p">.</span><span class="n">diff</span><span class="p">.</span><span class="n">display_diff</span><span class="p">(</span><span class="n">remote_template_dir</span><span class="p">,</span><span class="w"> </span><span class="n">local_template_dir</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">utils</span><span class="p">.</span><span class="n">diff</span><span class="p">.</span><span class="n">display_diff</span><span class="p">(</span><span class="n">local_template_dir</span><span class="p">,</span><span class="w"> </span><span class="n">remote_template_dir</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="p">(</span><span class="n">has_diff</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">exit_code</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
@@ -1147,6 +1149,8 @@ the code you intentionally write. Built on-top of, and fully compatible with, Co
 
 <span class="w">        </span><span class="n">new_template_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmpdir</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="ss">&quot;new_template&quot;</span><span class="w"></span>
 
+<span class="w">        </span><span class="nl">deleted_paths</span><span class="p">:</span><span class="w"> </span><span class="k">Set</span><span class="o">[</span><span class="n">Path</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">set</span><span class="p">()</span><span class="w"></span>
+
 <span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="n">Clone</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">template</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">repo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utils</span><span class="p">.</span><span class="n">cookiecutter</span><span class="p">.</span><span class="n">get_cookiecutter_repo</span><span class="p">(</span><span class="n">cruft_state</span><span class="o">[</span><span class="n">&quot;template&quot;</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">repo_dir</span><span class="p">,</span><span class="w"> </span><span class="n">checkout</span><span class="p">)</span><span class="w"></span>
@@ -1185,6 +1189,10 @@ the code you intentionally write. Built on-top of, and fully compatible with, Co
 
 <span class="w">            </span><span class="n">checkout</span><span class="o">=</span><span class="n">cruft_state</span><span class="o">[</span><span class="n">&quot;commit&quot;</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
 
+<span class="w">            </span><span class="n">deleted_paths</span><span class="o">=</span><span class="n">deleted_paths</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">update_deleted_paths</span><span class="o">=</span><span class="k">True</span><span class="p">,</span><span class="w"></span>
+
 <span class="w">        </span><span class="p">)</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">new_context</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">utils</span><span class="p">.</span><span class="n">generate</span><span class="p">.</span><span class="n">cookiecutter_template</span><span class="p">(</span><span class="w"></span>
@@ -1200,6 +1208,8 @@ the code you intentionally write. Built on-top of, and fully compatible with, Co
 <span class="w">            </span><span class="n">cookiecutter_input</span><span class="o">=</span><span class="n">cookiecutter_input</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">            </span><span class="n">checkout</span><span class="o">=</span><span class="n">last_commit</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">deleted_paths</span><span class="o">=</span><span class="n">deleted_paths</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="p">)</span><span class="w"></span>
 
