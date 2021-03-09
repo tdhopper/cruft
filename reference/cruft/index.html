@@ -1074,7 +1074,8 @@ the code you intentionally write. Built on-top of, and fully compatible with, Co
     <span class="n">skip_apply_ask</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">skip_update</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">checkout</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_untracked_files</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 
@@ -1113,6 +1114,8 @@ the code you intentionally write. Built on-top of, and fully compatible with, Co
 
 <span class="w">    </span><span class="nl">strict</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">True</span><span class="p">,</span><span class="w"></span>
 
+<span class="w">    </span><span class="nl">allow_untracked_files</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="p">,</span><span class="w"></span>
+
 <span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">bool</span><span class="p">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;Update specified project&#39;s cruft to the latest and greatest release.&quot;&quot;&quot;</span><span class="w"></span>
@@ -1123,7 +1126,7 @@ the code you intentionally write. Built on-top of, and fully compatible with, Co
 
 <span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">clean</span><span class="w"> </span><span class="n">working</span><span class="w"> </span><span class="n">directory</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="n">proceeding</span><span class="p">.</span><span class="w"></span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">_is_project_repo_clean</span><span class="p">(</span><span class="n">project_dir</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">_is_project_repo_clean</span><span class="p">(</span><span class="n">project_dir</span><span class="p">,</span><span class="w"> </span><span class="n">allow_untracked_files</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">typer</span><span class="p">.</span><span class="n">secho</span><span class="p">(</span><span class="w"></span>
 
@@ -1223,7 +1226,17 @@ the code you intentionally write. Built on-top of, and fully compatible with, Co
 
 <span class="s1">        if _apply_project_updates(</span>
 
-<span class="s1">            current_template_dir, new_template_dir, project_dir, skip_update, skip_apply_ask</span>
+<span class="s1">            current_template_dir,</span>
+
+<span class="s1">            new_template_dir,</span>
+
+<span class="s1">            project_dir,</span>
+
+<span class="s1">            skip_update,</span>
+
+<span class="s1">            skip_apply_ask,</span>
+
+<span class="s1">            allow_untracked_files,</span>
 
 <span class="s1">        ):</span>
 
